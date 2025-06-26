@@ -95,8 +95,8 @@ namespace Reminder
 
                 //then for the parameter pass a List
                 //then lets write into the txt file
-                File.WriteAllLines(path, save_new);
-                //File.AppendAllLines(path, save_new);
+                //File.WriteAllLines(path, save_new);
+                File.AppendAllLines(path, save_new);
                 //if you pass a variable it give you an error
                 //you can test using variable
 

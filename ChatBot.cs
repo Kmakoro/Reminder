@@ -33,8 +33,8 @@ namespace Reminder
         //creaye cyber dictionary object to give responses
         private CyberDictionary responseDictionary;
         //string to hold the question
-        private string question = string.Empty;
-        private MemoryRecall memoryRecall;
+        
+        
         //constructor to initialize the chatbot
         public ChatBot(string user)
         {
@@ -135,26 +135,26 @@ namespace Reminder
                         {
                             final_response +=(string.Concat("Hello ", user, " I trust you are well, " +
                                 "how would you like me to assist you today? " +
-                                "please note this chatbot can only respond to cybersecurity related questions."));
+                                "\nplease note this chatbot can only respond to cybersecurity related questions."));
                             
                         }
                         //provide a response to the user to know how the chatbot is doing
                         if (question.Contains("how are you"))
                         {
-                            final_response += ("I'm doing great, thank you for asking. How can I help you today?");
+                            final_response = ("I'm doing great, thank you for asking. \nHow can I help you today?");
                             
                             
                         }
                         //provide a repsonse to the user to know the purpose of the chatbot
                         if (question.Contains("what's your purpose"))
                         {
-                            final_response += ("I'm here to help you with any questions you have about cybersecurity. Feel free to ask me anything!");
+                            final_response = ("I'm here to help you with any questions you have about cybersecurity. \nFeel free to ask me anything!");
                             
                         }
                         //provaide a response for the user to know what they can ask the chatbot
                         if (question.Contains("what can i ask you about"))
                         {
-                            final_response += ("You can ask me about passwords, phishing, safe browsing, and more. Just type your question, and I'll do my best to help!");
+                            final_response = ("You can ask me about passwords, phishing, safe browsing, and more. \nJust type your question, and I'll do my best to help!");
                             
                         }
                         //provide a response to a user should there be a question without direct meaning
@@ -170,7 +170,7 @@ namespace Reminder
                 else
                 {
                     //give error message for not understanding the question of the user or words used not in the dictionary
-                    final_response = ("I didn't quite understand that. Could you rephrase? Remember to as me about topics related to cyber security");
+                    //final_response = ("I didn't quite understand that. Could you rephrase? Remember to as me about topics related to cyber security");
 
                 }
                 //if password has been detected then proceed
@@ -286,39 +286,7 @@ namespace Reminder
 
         
 
-        private void displayMemory(List<string> memory)
-        {
-
-            foreach (string line in memory)
-            {
-                Console.WriteLine(line);
-                if (line.Contains("password"))
-                {
-                    passwordMemory = true;
-                }
-                if (line.Contains("phishing"))
-                {
-                    phishingMemory = true;
-                }
-                if (line.Contains("safe browsing"))
-                {
-                    safebrowsingMemory = true;
-                }
-                if (line.Contains("virus"))
-                {
-                    virusMemory = true;
-                }
-                if (line.Contains("malware"))
-                {
-                    malwareMemory = true;
-                }
-                if (line.Contains("ransomware"))
-                {
-                    ransomwareMemory = true;
-                }
-            }
-
-        }
+       
 
         //function to retrieve 3 random reponses based on Topic
         private string Response(List<string> Topic, string optional = null)

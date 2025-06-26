@@ -60,6 +60,8 @@
                 <!--List view to append list-->
                 <ListView 
                 Margin="0,0,0,0" 
+                
+                    
                 Height="400" 
                 Width="800"
                 MouseDoubleClick="show_chats_MouseDoubleClick"
@@ -89,12 +91,72 @@
             Margin="0,30,0,0"
             Visibility="Hidden">
 
-                <!--Button to return to Task Grid -->
-                <Button 
-                Content="Task Page" 
-                Height="30" 
-                Width="150" 
-                Click="task_button"/>
+                <!--Stack Panel to cover components as vertical-->
+                <StackPanel 
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Width="700"
+            >
+                    <!-- add all required components-->
+
+                    <!--title of the game -->
+                    <TextBlock 
+                Text="Cyber security quiz [game]"
+                HorizontalAlignment="Center"
+                />
+
+                    <TextBlock
+                Text="Question to be asked ?"
+                x:Name="DisplayedQuestion"
+                HorizontalAlignment="Center"
+                />
+
+
+                    <!-- add the four buttons for selecting answer-->
+                    <Button 
+                x:Name="FirstChoiceButton"
+                Click="HandleAnswerSelection"
+                Padding="20"
+             />
+
+                    <Button 
+                x:Name="SecondChoiceButton"
+                Click="HandleAnswerSelection"
+                Padding="20"
+                />
+
+                    <Button 
+                x:Name="ThirdChoiceButton"
+                Click="HandleAnswerSelection"
+                Padding="20"
+                />
+
+                    <Button
+                x:Name="FourthChoiceButton"
+                Click="HandleAnswerSelection"
+                Padding="20"
+                />
+
+                    <!-- put the score and the next button -->
+                    <Button
+                x:Name="NextQuestionButton"
+                Content="Next"
+                Click="HandleNextQuestion"
+                Padding="20"
+                
+                Background="BurlyWood"
+                />
+
+                    <!-- show the score-->
+                    <TextBlock 
+                x:Name="DisplayScore"
+                HorizontalAlignment="Right"
+                Text="play game first"
+                />
+
+
+                </StackPanel>
+
 
             </Grid>
             <!-- Grid for Activity Log-->
@@ -105,19 +167,16 @@
             Margin="0,30,0,0"
             Visibility="Hidden">
 
-                <!--Button to return to Task Grid -->
-                <Button 
-                Margin="0,450,0,0"
-                Content="Refresh" 
-                Height="30" 
-                Width="150" 
-                Click="refresh_button"/>
+                
+                
                 <!--ListView to show activity log-->
-                <ListView 
-                Margin="0,0,0,0" 
-                Height="400" 
-                Width="800" 
-                x:Name="activity_log_list"/>
+                <TextBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         Margin="0,0,0,0" 
+                        Height="450" 
+                        Width="800" 
+                        x:Name="activity_log_list"/>
+               
             </Grid>
         </Grid>
     </Grid>
