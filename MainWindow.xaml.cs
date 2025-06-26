@@ -218,8 +218,6 @@ namespace Reminder
                 //activity_log_list.Items.Add(time + " " + reminder.get_remind());
             }
 
-            //view task
-
             else if (temp_userTask.Contains("remind"))
             {//check if conatains remind
                 //check task holder

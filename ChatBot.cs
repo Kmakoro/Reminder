@@ -44,9 +44,6 @@ namespace Reminder
 
         }
 
-       
-        
-
         public string checkQuestion(string question)
         {
             string final_response = string.Empty;
