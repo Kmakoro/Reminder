@@ -1,0 +1,124 @@
+﻿<Window x:Class="Reminder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Reminder"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="900">
+    <Grid Height="600" Width="900" >
+
+        <!--Grid for the Login Page-->
+        <Grid x:Name="login_grid"
+              Height="600"
+              Width="900"
+              Visibility="Visible"
+              >
+            <TextBlock Text="Enter Username"
+                       Height="30"
+                       Width="150"
+                       Margin="0,0,250,0"/>
+            <TextBox Height="30"
+                     Width="150"
+                     Margin="0,0,70,10"
+                     x:Name="txt_username"/>
+            <Button Click="submit_username"
+                    Height="30"
+                    Width="150"
+                    Margin="250,0,0,10"
+                    Content="submit"/>
+
+
+        </Grid>
+        <!--Grid for holding different sections inside-->
+        <Grid Height="600"
+              Width="900"
+              x:Name="application_grid"
+              Visibility="Hidden">
+            <Button Content="Chat"
+                    Height="30"
+                    Width="150"
+                    Margin="0,0,350,550"
+                    Click="chat_button"/>
+            <Button Content="MCQ Game"
+                    Height="30"
+                    Width="150"
+                    Margin="0,0,0,550"
+                    Click="game_button"/>
+            <Button Content="Activity Log"
+                    Height="30"
+                    Width="150"
+                    Margin="350,0,0,550"
+                    Click="activity_button"/>
+            <!--Grid for setting the task-->
+            <Grid x:Name="chat_grid" 
+              Height="500" 
+              Width="900" 
+              Margin="0,30,0,0"
+              Visibility="Visible">
+
+                <!--List view to append list-->
+                <ListView 
+                Margin="0,0,0,0" 
+                Height="400" 
+                Width="800"
+                MouseDoubleClick="show_chats_MouseDoubleClick"
+                x:Name="chat_append"/>
+
+                <!--Text Box for Inputing user tasks-->
+                <TextBox 
+                Margin="0,450,200,0" 
+                Height="30" 
+                Width="600" 
+                x:Name="user_task"/>
+
+                <!--Button for sub-task-->
+                <Button 
+                Margin="650,450,0,0" 
+                Height="30" 
+                Width="150" 
+                Click="set_reminder" 
+                Content="Submit"/>
+            </Grid>
+
+            <!--Grid for the MCQ Game-->
+            <Grid 
+            Height="500" 
+            Width="900" 
+            x:Name="game_grid"
+            Margin="0,30,0,0"
+            Visibility="Hidden">
+
+                <!--Button to return to Task Grid -->
+                <Button 
+                Content="Task Page" 
+                Height="30" 
+                Width="150" 
+                Click="task_button"/>
+
+            </Grid>
+            <!-- Grid for Activity Log-->
+            <Grid 
+            Height="500" 
+            Width="900" 
+            x:Name="activity_log_grid"
+            Margin="0,30,0,0"
+            Visibility="Hidden">
+
+                <!--Button to return to Task Grid -->
+                <Button 
+                Margin="0,450,0,0"
+                Content="Refresh" 
+                Height="30" 
+                Width="150" 
+                Click="refresh_button"/>
+                <!--ListView to show activity log-->
+                <ListView 
+                Margin="0,0,0,0" 
+                Height="400" 
+                Width="800" 
+                x:Name="activity_log_list"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
