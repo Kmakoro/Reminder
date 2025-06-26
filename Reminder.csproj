@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Content Include="AI voice.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

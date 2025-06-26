@@ -1,0 +1,26 @@
+2025/06/26 20:12:11 karabo : hello, 
+2025/06/26 20:12:11 CoCo Bot :Hello karabo I trust you are well, how would you like me to assist you today? 
+please note this chatbot can only respond to cybersecurity related questions., 
+2025/06/26 20:12:11 karabo : hello, 
+2025/06/26 20:12:11 CoCo Bot :Hello karabo I trust you are well, how would you like me to assist you today? 
+please note this chatbot can only respond to cybersecurity related questions., 
+2025/06/26 20:12:25 karabo : tell me about ransomware, 
+2025/06/26 20:12:25 CoCo Bot :
+
+1. To protect against ransomware, regularly back up your important files to an external drive or cloud storage, and keep your operating system and applications updated.
+2. Ransomware is a type of malware that encrypts a victim's files, rendering them inaccessible until a ransom is paid to the attacker.
+3. Ransomware often spreads through phishing emails, malicious downloads, or exploiting vulnerabilities in software., 
+2025/06/26 20:23:00 karabo : add task I am Winning, 
+2025/06/26 20:23:00 CoCo Bot : Would you like a Reminder for i am winning task?, 
+2025/06/26 20:23:00 karabo : add task I am Winning, 
+2025/06/26 20:23:00 CoCo Bot : Would you like a Reminder for i am winning task?, 
+2025/06/26 20:23:11 karabo : yes remind me in 10 days, 
+2025/06/26 20:23:11 CoCo Bot :great I will remind you in 10 days, 
+2025/06/26 20:23:00 karabo : add task I am Winning, 
+2025/06/26 20:23:00 CoCo Bot : Would you like a Reminder for i am winning task?, 
+2025/06/26 20:23:11 karabo : yes remind me in 10 days, 
+2025/06/26 20:23:11 CoCo Bot :great I will remind you in 10 days, 
+2025/06/26 20:23:49 karabo : show reminders, 
+2025/06/26 20:23:49 CoCo Bot :Your reminders are, 
+2025/06/26 20:23:49 CoCo Bot :Description: i am winning
+Period: 10 Days., 

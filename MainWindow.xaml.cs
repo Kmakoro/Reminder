@@ -11,7 +11,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using System.Media;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 
 namespace Reminder
 {
@@ -62,6 +65,31 @@ namespace Reminder
         }
         //*******************************************************************************************************//
 
+        SoundPlayer player;
+        //*********************************audio method***********************************//
+        public void greet()
+        {
+            //creating an instance for the media class
+            MediaPlayer Audio_greet = new MediaPlayer();
+            
+
+            //get the path automatical
+            string fullPath = AppDomain.CurrentDomain.BaseDirectory;
+
+            //then replace the \\bin\\Debug\\net8.0-windows
+            string replaced = fullPath.Replace("\\bin\\Debug\\net8.0-windows", "");
+
+            //combine paths once done replacing
+            string combine_path = System.IO.Path.Combine(replaced, "AI voice.wav");
+
+            //combine the url as uri
+            Audio_greet.Open(new Uri(combine_path, UriKind.Relative));
+            player.SoundLocation = combine_path;
+            //play sound
+            player.Play();
+
+        }
+        //********************************************************************************//
 
         //create getReminder object
         get_reminder reminder = new get_reminder();
@@ -80,7 +108,9 @@ namespace Reminder
         public MainWindow()
         {
             InitializeComponent();
+            player = new SoundPlayer();
             this.WindowState = WindowState.Maximized; // Maximize window
+            greet();
             //*********************************************NPL Machine Learning**********************************************//
             //implimenting the NLP Model
             // Initialize ML context
@@ -92,7 +122,22 @@ namespace Reminder
                 new SentimentData { Text = "I am happy", Label = true },
                 new SentimentData { Text = "I hate this", Label = false },
                 new SentimentData { Text = "I am sad", Label = false },
-                new SentimentData { Text = "I am good", Label = true }
+                new SentimentData { Text = "I am good", Label = true },
+                new SentimentData { Text = "I am happy", Label = true },
+                new SentimentData { Text = "I feel great", Label = true },
+                new SentimentData { Text = "Life is good", Label = true },
+                new SentimentData { Text = "Everything is fine", Label = true },
+                new SentimentData { Text = "I love this", Label = true },
+                new SentimentData { Text = "I am doing well", Label = true },
+                new SentimentData { Text = "I am good", Label = true },
+                new SentimentData { Text = "Feeling awesome", Label = true },
+                new SentimentData { Text = "I hate this", Label = false },
+                new SentimentData { Text = "I am sad", Label = false },
+                new SentimentData { Text = "This is terrible", Label = false },
+                new SentimentData { Text = "I feel awful", Label = false },
+                new SentimentData { Text = "I am not okay", Label = false },
+                new SentimentData { Text = "I am depressed", Label = false },
+                new SentimentData { Text = "This sucks", Label = false }
             };
 
             TrainModel();
@@ -105,11 +150,11 @@ namespace Reminder
             //*************************************************************************************************//
         }
 
-
+        
 
         private void set_reminder(object sender, RoutedEventArgs e)
         {
-           
+
 
             //temporary variabl to collect users input
             //add the task to the list view but get date and time
@@ -121,7 +166,7 @@ namespace Reminder
 
             //Check using the chatbot class for the user input
 
-            
+
 
             //check if empty or not
             if (!reminder.validate_input(temp_userTask).Equals("Found"))
@@ -132,10 +177,14 @@ namespace Reminder
                 return;//break out of the method
             }
             chat_append.Items.Add(time + " " + username + " : " + temp_userTask);
-            chat_append.Items.Add(time + " CoCo Bot :" + chatBot.checkQuestion(temp_userTask));
+            if (chatBot.checkQuestion(temp_userTask) != "")
+            {
+                chat_append.Items.Add(time + " CoCo Bot :" + chatBot.checkQuestion(temp_userTask));
+            }
+
             temp_userTask = temp_userTask.ToLower();
 
-            
+
             //activity_log_list.Items.Add(time + " " + chatBot.checkQuestion(temp_userTask));
 
             //if all validated then check for tasks
@@ -148,7 +197,7 @@ namespace Reminder
                 string get_description = temp_userTask.Replace("add task ", "");
 
                 //then add to the list
-                chat_append.Items.Add(time+ " CoCo Bot :" + username + " : " + get_description + "\nWould you like a Reminder?");
+                chat_append.Items.Add(time + " CoCo Bot : " + "Would you like a Reminder for " + get_description + " task?");
                 //activity_log_list.Items.Add(time + " " + username + " : " + get_description + "\nWould you like a Reminder?");
 
 
@@ -165,7 +214,7 @@ namespace Reminder
             {
                 chat_append.Items.Add(time + " CoCo Bot :" + "Your reminders are");
                 chat_append.Items.Add(time + " CoCo Bot :" + reminder.get_remind());
-               // activity_log_list.Items.Add(time + " " + "Your reminders are");
+                // activity_log_list.Items.Add(time + " " + "Your reminders are");
                 //activity_log_list.Items.Add(time + " " + reminder.get_remind());
             }
 
@@ -186,12 +235,12 @@ namespace Reminder
                         {
                             //add to list
                             chat_append.Items.Add(time + " CoCo Bot :" + reminder.today_date(hold_task, hold_day));
-                           // activity_log_list.Items.Add(time + " " + reminder.today_date(hold_task, hold_day));
+                            // activity_log_list.Items.Add(time + " " + reminder.today_date(hold_task, hold_day));
                         }
                         else
                         {
                             chat_append.Items.Add(time + " CoCo Bot :" + "sorry , system chatbot failed to add task");
-                           // activity_log_list.Items.Add(time + " " + "sorry , system chatbot failed to add task");
+                            // activity_log_list.Items.Add(time + " " + "sorry , system chatbot failed to add task");
                         }
                     }
                     else
@@ -219,14 +268,31 @@ namespace Reminder
                     chat_append.Items.Add(time + " CoCo Bot :" + "No task was set to remind you");
                     //activity_log_list.Items.Add(time + " " + "No task was set to remind you");
                 }
-               
+
             }//end of if statement
 
 
             emotions();
             //Auto Scroll
             chat_append.ScrollIntoView(chat_append.Items[chat_append.Items.Count - 1]);
-            //activity_log_list.ScrollIntoView(activity_log_list.Items[activity_log_list.Items.Count - 1]);
+
+            //********************************Save chats to activity Log*********************************//
+            // Save the chat to a file
+            List<string> chats = chat_append.Items.Cast<string>().ToList();
+            string list = ConvertListToString(chats);
+            string fullpath = AppDomain.CurrentDomain.BaseDirectory;
+            string new_path = fullpath.Replace("bin\\Debug\\net8.0-windows\\", "");
+            String File_name = new_path + user.getUsername() + ".txt";
+            FileStream fs = new FileStream(File_name, FileMode.Append, FileAccess.Write);
+            if (System.IO.File.Exists(File_name) == true)
+            {
+
+                StreamWriter objWrite = new StreamWriter(fs);
+                objWrite.Write(list);
+                objWrite.Close();
+            }
+            //***************************************************************************************//
+
         }
 
         private void mcq_button(object sender, RoutedEventArgs e)
@@ -255,12 +321,30 @@ namespace Reminder
                 // Show a welcome message
                 login_grid.Visibility = Visibility.Hidden;
                 application_grid.Visibility = Visibility.Visible;
+
+
+
+                //********************Create Activity Log**************************//
+                string fullpath = AppDomain.CurrentDomain.BaseDirectory;
+                string new_path = fullpath.Replace("bin\\Debug\\net8.0-windows\\", "");
+                String File_name = new_path + user.getUsername() + ".txt";
+                if (System.IO.File.Exists(File_name) == false)
+                {
+                    FileStream fs = new FileStream(File_name, FileMode.Create, FileAccess.Write);
+                    MessageBox.Show("File Not Exist \nFile Created for user : " + user.getUsername());
+
+                }
+
+                //**********************************************************************//
+
             }
             else
             {
                 MessageBox.Show("Error please enter a username");
             }
         }
+
+
 
         private void refresh_button(object sender, RoutedEventArgs e)
         {
@@ -269,7 +353,7 @@ namespace Reminder
 
         private void chat_button(object sender, RoutedEventArgs e)
         {
-           
+
             if (game_grid.Visibility == Visibility.Visible)
             {
                 game_grid.Visibility = Visibility.Hidden;
@@ -288,7 +372,7 @@ namespace Reminder
 
         private void game_button(object sender, RoutedEventArgs e)
         {
-           
+
             if (activity_log_grid.Visibility == Visibility.Visible)
             {
                 activity_log_grid.Visibility = Visibility.Hidden;
@@ -303,7 +387,7 @@ namespace Reminder
             {
                 MessageBox.Show("No game to show");
             }
-            
+
         }
 
         public static string ConvertListToString(List<string> stringList)
@@ -319,14 +403,18 @@ namespace Reminder
 
         private void activity_button(object sender, RoutedEventArgs e)
         {
-            List<string> chats = chat_append.Items.Cast<string>().ToList();
-            string list = ConvertListToString(chats);
-            MessageBox.Show(list);
-            activity_log_list.Text = list; // Assign the list to the TextBox for display
-            //activity_log_list = chat_append; // Assign the chat_append to activity_log_list for display
-            // Copy items from chat_append to activity_log_list
-            //activity_log_list.Items.Clear();
-            //activity_log_list.Items.Add(list);
+            string fullpath = AppDomain.CurrentDomain.BaseDirectory;
+            string new_path = fullpath.Replace("bin\\Debug\\net8.0-windows\\", "");
+            String File_name = new_path + user.getUsername() + ".txt";
+            if (System.IO.File.Exists(File_name) == true)
+
+            {
+                System.IO.StreamReader objReader;
+                objReader = new StreamReader(File_name);
+                activity_log_list.Text = objReader.ReadToEnd();
+                objReader.Close();
+
+            }
 
 
             if (game_grid.Visibility == Visibility.Visible)
@@ -382,7 +470,7 @@ namespace Reminder
                 List<string> chats = chat_append.Items.Cast<string>().ToList();
                 memoryRecall.save_memory(chats);
             }
-            
+
         }
 
 
@@ -445,11 +533,11 @@ namespace Reminder
                 reply = "You seem quite low. Be kind to yourself — brighter days will come.";
             }
             //chat_append.Items.Add(time + " " + feedback + reply);
-           // chat_append.ScrollIntoView(activity_log_list.Items[activity_log_list.Items.Count - 1]);
+            // chat_append.ScrollIntoView(activity_log_list.Items[activity_log_list.Items.Count - 1]);
             //show_emotion_detected.Text = feedback + reply;
 
             // Ask user to confirm if prediction was correct
-            var result = MessageBox.Show(feedback+reply+"\nWas this prediction correct?", "Feedback", MessageBoxButton.YesNo);
+            var result = MessageBox.Show(feedback + reply + "\nWas this prediction correct?", "Feedback", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.No)
             {
@@ -510,13 +598,13 @@ namespace Reminder
 
 
 
-            
+
             //then add by index
             FirstChoiceButton.Content = shuffled[0];
             SecondChoiceButton.Content = shuffled[1];
             ThirdChoiceButton.Content = shuffled[2];
             FourthChoiceButton.Content = shuffled[3];
-            
+
             //******//
             // Identify which button has the correct answer
             if ((string)FirstChoiceButton.Content == currentQuiz.CorrectChoice) correctChoiceButton = FirstChoiceButton;
@@ -570,7 +658,7 @@ namespace Reminder
                     Choices = new List<string>{
                     "Cyber security protects criminals","Cyber security protects internet-connected systems","Cyber security protects hackers","None of the mentioned"
                     }
-                
+
                 },
                 new QuizQuestion
                 {

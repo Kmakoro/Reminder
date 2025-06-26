@@ -26,10 +26,13 @@ namespace Reminder
             // Create a timer to close the splash screen after 10 seconds (adjust as needed)
 
             var timer = new Timer(TimerCallback, null, 1000, Timeout.Infinite);
+
         }
 
+       
         private void TimerCallback(object state)
         {
+           
             // Close the splash screen and show the main window
             Dispatcher.Invoke(() =>
             {
